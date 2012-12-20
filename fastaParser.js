@@ -17,10 +17,16 @@ var jsb = (function(local_jsb){
     local_jsb.fastaParser = function(filename){
         
         var inStream = new BufferedReader(new FileReader(filename));
-        var current_header = null;
-        var current_sequence = null;
-        var next_header = null;
-        var line = null;
+
+        var record = {
+            name: null,
+            sequence: null
+        };
+        
+        var current_header = new java.lang.StringBuffer();
+        var current_sequence = new java.lang.StringBuffer();
+        var first = true;
+        var line;
         
         return {
             hasNext: function(){
@@ -28,30 +34,31 @@ var jsb = (function(local_jsb){
                 if( line == null )
                     return false;
 
-                if(next_header == null){
-                    current_header = line.substring(1,line.length());
+                if(first){
+                    current_header.append( line.substring(1,line.length()) );
                     line = inStream.readLine();
-                }else{
-                    current_header = next_header;
+                    first = false;
                 }
                 
-                current_sequence = "";
                 while(line != null){
                     if(line.startsWith(">")){
-                        next_header = line.substring(1,line.length());
                         break;
                     }
-                    current_sequence += line;
+                    current_sequence.append(line);
                     line = inStream.readLine();
                 }
+                
+                record.name = current_header.toString();
+                record.sequence = current_sequence.toString();
+                current_header.setLength(0);
+                current_sequence.setLength(0);
+                if(line != null)
+                    current_header.append(line.substring(1,line.length()));
                 return true;
             },
             
             next: function(){
-                return {
-                    name : current_header,
-                    sequence: current_sequence
-                };
+                return record;
             }
         };        
     };
