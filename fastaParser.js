@@ -28,6 +28,7 @@ var jsb = (function(local_jsb){
         var line;
         
         return {
+
             hasNext: function(){
                 line = inStream.readLine();
                 if( line == null )
@@ -55,8 +56,8 @@ var jsb = (function(local_jsb){
                     current_header.append(line.substring(1,line.length()));
                 return true;
             },
-            
-            next: function(){
+
+	    next: function(){
                 return record;
             }
         };        
