@@ -5,9 +5,8 @@ var jsb = (function(local_jsb){
 
     
     //Fasta Parser
-    // Should be used as follows:
-    //
-    // var parser = jsb.fastaParser('infile');
+    //  Create a new fastaParser:
+    //     var parser = jsb.fastaParser(inputFile);
     // var record = null;
     // while(parser.hasNext()){
     //    record = parser.next();
