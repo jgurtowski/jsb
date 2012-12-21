@@ -1,9 +1,9 @@
-
+#!/usr/bin/env jsb
 
 load("fastaParser.js");
 
 if(arguments.length != 1){
-	print("getfastaLengths.js file.fa");	
+	print("getFastaLengths.js file.fa");	
 	quit();
 }
 
@@ -14,5 +14,5 @@ var record = null;
 var f = 0;
 while(parser.hasNext()){
     record = parser.next();
-    print(record.name + " " + record.sequence.length());
+    print(record.name + "\n" + record.sequence.length());
 }

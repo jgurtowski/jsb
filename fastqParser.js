@@ -22,6 +22,9 @@ var jsb = (function(local_jsb){
 		    record.sequence = inStream.readLine();
 		    record.description = inStream.readLine();
 		    record.quality = inStream.readLine();
+		    if(record.name == null || record.sequence == null ||
+		       record.description == null || record.quality == null)
+			return false;
 		    
 		    if(!record.name.startsWith("@"))
 			throw "Corrupted fastq, header should start with '@'";
