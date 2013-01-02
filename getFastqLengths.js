@@ -1,17 +1,26 @@
-#!/usr/bin/env jsb
 
-load("fastqParser.js");
+jsb.require("fastqParser.js");
 
-if(arguments.length != 1){
-	print("getFastqLengths.js file.fa");	
-	quit();
-}
 
-var parser = jsb.fastqParser(arguments[0]);
+var jsb = (function(myjsb){
 
-var record = null;
+    jsb.main_func = function(args){
+        if(args.length != 1){
+	    print("getFastqLengths file.fa");	
+	    quit();
+        }
 
-while(parser.hasNext()){
-    record = parser.next();
-    print(record.name + "\t" + record.sequence.length());
-}
+        var parser = jsb.fastqParser(args[0]);
+
+        var record = null;
+
+        while(parser.hasNext()){
+            record = parser.next();
+            print(record.name + "\t" + record.sequence.length());
+        }
+    };
+
+    return myjsb;
+})(jsb || {});
+
+

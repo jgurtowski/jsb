@@ -1,18 +1,28 @@
-#!/usr/bin/env jsb
 
-load("fastaParser.js");
+jsb.require("fastaParser.js");
 
-if(arguments.length != 1){
-	print("getFastaLengths.js file.fa");	
-	quit();
-}
 
-var parser = jsb.fastaParser(arguments[0]);
+var jsb = (function(myjsb){
+    
+    jsb.main_func = function(args){
+        if(args.length != 1){
+	    print("getFastaLengths file.fa");	
+	    quit();
+        }
 
-var record = null;
+        var parser = jsb.fastaParser(args[0]);
+        
+        var record = null;
+    
+        while(parser.hasNext()){
+            record = parser.next();
+            print(record.name + "\n" + record.sequence.length());
+        }
+    };
+    
+    return myjsb;
 
-var f = 0;
-while(parser.hasNext()){
-    record = parser.next();
-    print(record.name + "\n" + record.sequence.length());
-}
+})(jsb || {});
+
+
+
