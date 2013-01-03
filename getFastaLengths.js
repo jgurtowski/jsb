@@ -16,7 +16,7 @@ var jsb = (function(myjsb){
     
         while(parser.hasNext()){
             record = parser.next();
-            print(record.name + "\n" + record.sequence.length());
+            print(record.name + "\t" + record.sequence.length());
         }
     };
     
